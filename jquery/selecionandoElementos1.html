@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Selecionando Elementos #01</title>
+    <link rel='stylesheet' href='css/estilo.css'>
+    <script src='js/jquery.js'></script>
+    <style>
+        .negrito {
+            font-weight: bold;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form input,
+        form select,
+        form button {
+            margin: 10px;
+            font-size: 1.6em;
+        }
+    </style>
+</head>
+
+<body class='conteudo exercicio'>
+    <h1>Selecionando Elementos #01</h1>
+    <div>
+        <p>Parágrafo
+            <span class='negrito'>dentro span</span>
+        </p>
+    </div>
+    <div>
+        <ul id='feira'>
+            <li>Arroz</li>
+            <li wm-obrigatorio>Feijão</li>
+            <li class='opcional'>Carne</li>
+            <li class='opcional'>Ovo</li>
+        </ul>
+    </div>
+    <form>
+        <input type='text' name='texto'>
+        <input type='password' name='senha'>
+        <input type='checkbox' name='check1'>
+        <input type='radio' name='radio1'>
+        <input type='file' name='arquivo'>
+    </form>
+
+    <script>
+        $('#feira').addClass('destaque').removeClass('destaque') //Seletor de id //Pegando elemento com id feira e colocando e depois removendo a classe destaque
+        $('li').addClass('destaque') //seletor de elemento
+        $('[wm-obrigatorio]').removeClass('destaque') //seletor de atributo
+        $('li.opcional').removeClass('destaque') //Todos elementos li com a classe opcional
+        $('div p span').addClass('destaque') //selecionando um span que esta dentro de um p que esta dentro de uma div
+
+        //Seletores exclusivos do jQuery
+        $('li:first').css('border', 'solid 3px yellow') //primeiro elemento li
+        $('li:odd').css('border', 'solid 10px orange') // lis impares (lembrando que o primeiro elemento é 0)
+        $('li:gt(1)').css('border', 'solid 10px white') //Todos lis maiores que determinado indice
+        $('li:not(:last)').css('border', 'none') //Todos lis, menos o ultimo
+        $('li:contains("r")').css('background-color','black') //selecionando o elemento que dentro contem alguma letra ou palavra etc (nesse caso arroz e carne)
+
+        //Filtros relacionados a formularios
+        $('form *').hide(1000) //Escondendo todos elementos dentro do form
+        $('form :text').show(2000) //selecionando elemento do tipo text
+        $('form :password').show(3000) //selecionando elemento do tipo password
+        $('form :checkbox').show(4000) //selecionando elemento do tipo checkbos
+        $('form :radio').show(5000) //selecionando elemento do tipo radio
+        $('form :file').show(6000) //selecionando elemento do tipo file
+    </script>
+</body>

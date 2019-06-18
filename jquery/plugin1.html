@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Plugin #01</title>
+    <link rel='stylesheet' href='css/estilo.css'>
+    <script src='js/jquery.js'></script>
+</head>
+
+<body class='conteudo exercicio'>
+    <h1>Plugin #01</h1>
+    <div>
+        {{ 1 + 2 }}
+        Texto 1
+        {{ 3 ** 3 }}
+        Texto 2
+        {{ console.log('Funcionou!') }}
+        Texto 3
+        {{ (function() { return 'Legal!!!' })() }}
+        Texto Final
+    </div>
+
+    <script>
+        //Plugin para resolver as expressoes entre duas chaves no html
+
+        // const $ = {nome: 'Não é o jQuery'}
+
+        //Garantindo que o Dolar "$" represente o jQuery
+        (function($) { //Função auto invocada
+            $.fn.interpretar = function() {
+                const retirarChaves = s => s.substring(2,s.length -2) //função para retirar as chaves das expressoes
+                const conteudo = $(this).html() //Pegando o conteudo do elemento
+                const expressoesComChaves = conteudo.match(/\{\{.+\}\}/g) //Lendo apenas o que tem 2 chaves
+                const expressoes = expressoesComChaves.map(retirarChaves) //Retirando as chaves
+                const resultados = expressoes.map(e => eval(e)) //eval() - resolve as expressões contidas e retorna o resultado
+
+                //Substituindo as expressões nas chaves pelos resultados respectivos
+                let conteudoFinal = conteudo
+                for (let i = 0 ; i <expressoesComChaves.length;i++){
+                    conteudoFinal = conteudoFinal.replace( //replace - procura determinado conteudo , e substitui por outro
+                        expressoesComChaves[i], resultados[i]
+                    )
+                }
+                $(this).html(conteudoFinal)
+                return this //Para poder encadear com outras chamadas
+            }
+        })(jQuery) // Apenas dentro dessa função $ apontara para jQuery
+
+        $('div').interpretar()
+    </script>
+</body>

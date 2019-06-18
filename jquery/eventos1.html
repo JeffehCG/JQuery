@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Eventos #01</title>
+    <link rel='stylesheet' href='css/estilo.css'>
+    <script src='js/jquery.js'></script>
+    <style>
+        input {
+            font-size: 2em;
+        }
+    </style>
+</head>
+
+<body class='conteudo exercicio'>
+    <h1>Eventos #01</h1>
+    <div id='posicao'></div>
+    <div id='cliques'>Cliques: 0</div>
+    <input type="text" placeholder="Cor de Background" value="#cor">
+
+    <script>
+        //Função para mostrar a posição do mouse
+        function mostrarPosicaoMouse(e) {
+            $('#posicao').html(`x: ${e.clientX} y: ${e.clientY}`) //Selecionando elemento com id posicao e colocando posição do mouse na div
+        }
+
+        $('body').on('mousemove', mostrarPosicaoMouse) //.on() funcão que resgistra um evento dentro do jQuery (passado o evento em string, e em seguida chamada uma funçaõ quando esse evento ocorrer)
+                                  //mousemove - evento que é disparado sempre que o mouse mexer
+        
+        //Parar de mostrar a posição do mouse quando entrar na div #posicao
+        $('#posicao').mouseover(e => { //mouseover - quando o mouse estiver em cima do elemento
+            $('body').off('mousemove', mostrarPosicaoMouse) //.off() - desativa evento
+        })
+
+        //Voltar a mostrar a posição do mouse quando sair da div #posicao
+        $('#posicao').mouseleave(e => { //mouseleave - quando o mouse estiver fora do elemento
+            $('body').on('mousemove', mostrarPosicaoMouse)
+        })
+
+        //monitorando evento de clicks
+        let cliques = 0
+        $('body').click(e =>{ //quando clicar
+            $('#cliques').html(`Cliques: ${++cliques}`)
+        })
+
+        //monitorando evento de teclado (alterando cor de fundo)
+        const backgroundOriginal = $('body').css('background-color') //pegando a cor original
+        $('input').keyup(function(e){ //.keyup(evento ativa sempre que digitar algo) .keydown(igual keyup, porem com um atrazo de tecla)
+            const valor = $(this).val() //pegando o valor atual do input
+            if (valor.match(/#[\da-fA-F]{3,60}/)){ //Verificando se a cor digitada é valida
+                $('body').css('background-color', valor)
+            }else{
+                $('body').css('background-color', backgroundOriginal)
+            }
+        })
+    </script>
+</body>

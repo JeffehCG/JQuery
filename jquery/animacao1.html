@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Animação #01</title>
+    <link rel='stylesheet' href='css/estilo.css'>
+    <script src='js/jquery.js'></script>
+    <style>
+        div {
+            text-align: center;
+        }
+        button {
+            font-size: 1.8em;
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body class='conteudo exercicio'>
+    <h1>Animação #01</h1>
+    <button>Iniciar</button>
+    <div id='animar'>Animar!</div>
+
+    <script>        
+        $('button').click(e => {
+            const t = 500 //tempo paras animações
+            $('#animar').hide(t).show(t) //sumir e aparecer
+            //ou
+            // $('#animar').toggle(t).toggle(t) //se estiver aparecendo some, e do contrario aparece
+
+            $('#animar').fadeOut(t).fadeIn(t) //some e aparece
+            //ou
+            // $('#animar').fadeToggle(t).fadeToggle(t) //se estiver aparecendo some, e do contrario aparece
+
+            $('#animar').slideUp(t).slideDown(t) //Some e aparece
+            //ou
+            // $('#animar').slideToggle(t).slideToggle(t)//se estiver aparecendo some, e do contrario aparece
+
+
+        })
+    </script>
+</body>
